@@ -7,8 +7,14 @@ export async function GET(request: Request) {
   // https://supabase.com/docs/guides/auth/server-side/nextjs
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
+  const error = requestUrl.searchParams.get("error");
+  const errorDescription = requestUrl.searchParams.get("error_description");
   const origin = requestUrl.origin;
   const redirectTo = requestUrl.searchParams.get("redirect_to")?.toString();
+
+  if (error) {
+    return NextResponse.redirect(`${origin}/sign-in?error=${error}&error_description=${errorDescription}`);
+  }
 
   if (code) {
     const supabase = await createClient();
@@ -20,5 +26,5 @@ export async function GET(request: Request) {
   }
 
   // URL to redirect to after sign up process completes
-  return NextResponse.redirect(`${origin}/protected`);
+  return NextResponse.redirect(`${origin}/blogs`);
 }
