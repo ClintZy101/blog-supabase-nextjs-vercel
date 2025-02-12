@@ -12,15 +12,13 @@ export default function Blogs() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const supabase = createClient();
-  const pageSize = 1;
+  const pageSize = 2;
 
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
       try {
-        const { data, error } = await supabase
-          .from("blogs")
-          .select();
+        const { data, error } = await supabase.from("blogs").select();
         if (error) throw error;
         setBlogs(data);
       } catch (err: any) {
@@ -56,13 +54,9 @@ export default function Blogs() {
   return (
     <div>
       <div className="w-full text-center">
-        <h1 className="font-bold text-2xl my-10">Blog Posts</h1>
-      </div>
-
-      <div>
-        <Link href="/add-blog" className="bg-black hover:bg-white hover:border-4 hover:text-black border-4 border-black text-white px-4 py-2  transition-colors duration-300 font-semibold uppercase">
-          Create a Blog
-        </Link>
+        <h1 className="font-bold text-2xl border-b py-2 uppercase">
+          Blog Posts
+        </h1>
       </div>
 
       {error && <p className="text-red-500">Error: {error}</p>}
@@ -71,17 +65,38 @@ export default function Blogs() {
       ) : paginatedBlogs?.length === 0 ? (
         <p>No blogs found.</p>
       ) : (
-        <ul >
+        <div className="mt-10 min-w-[500px]">
           {paginatedBlogs?.map((post: any) => (
-            <li className="my-10" key={post.id}>
-              <h2 className="font-semibold text-xl">{post.title}</h2>
-              <h3 className="my-5">Author: {post.author_email}</h3>
-              <p>{post.content}</p>
-              {/* <p>Author: {post.author}</p> */}
-            </li>
+            <div
+              key={post.id}
+              className="group cursor-pointer border-b py-4 px-4 hover:bg-gray-100 transition-all duration-500"
+              onClick={() => (window.location.href = `/blogs/${post.id}`)}
+            >
+
+              <div className="text-xl font-medium text-gray-900 ">
+                {post.title}
+              </div>
+              
+              <div>
+                <div className="text-sm text-gray-500">{post.author_email}</div>
+                <div className="text-sm text-gray-500">
+                  {new Date(post.created_at).toLocaleString()}
+                </div>
+              </div>
+              <div className="text-sm text-gray-500 line-clamp-3">{post.content}</div>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
+
+      <div className="text-center my-10">
+        <Link
+          href="/protected"
+          className="hover:bg-black  text-black hover:text-white border-4 border-black px-4 py-2  transition-colors duration-300 font-semibold uppercase my-10"
+        >
+          My Blog Posts
+        </Link>
+      </div>
       <div className="flex justify-between mt-4">
         <Button
           variant="text"
@@ -94,7 +109,11 @@ export default function Blogs() {
         </Button>
         <div className="flex items-center justify-center gap-2">
           {Array.from({ length: totalPages }, (_, index) => (
-            <IconButton className="flex items-center justify-center" key={index + 1} {...getItemProps(index + 1)}>
+            <IconButton
+              className="flex items-center justify-center"
+              key={index + 1}
+              {...getItemProps(index + 1)}
+            >
               {index + 1}
             </IconButton>
           ))}

@@ -1,6 +1,7 @@
-import FetchDataSteps from "@/components/tutorial/fetch-data-steps";
+
 import { createClient } from "@/utils/supabase/server";
-import { InfoIcon } from "lucide-react";
+import { ArrowUpRight, InfoIcon } from "lucide-react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function ProtectedPage() {
@@ -14,25 +15,54 @@ export default async function ProtectedPage() {
     return redirect("/sign-in");
   }
 
+  const { data: blogs, error } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("author_id", user.id);
+
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
-      <div className="w-full">
+      {/* <div className="w-full">
         <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
           <InfoIcon size="16" strokeWidth={2} />
           This is a protected page that you can only see as an authenticated
           user
         </div>
-      </div>
+      </div> */}
       <div className="flex flex-col gap-2 items-start">
-        <h2 className="font-bold text-2xl mb-4">Your user details</h2>
-        <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
-          {JSON.stringify(user, null, 2)}
-        </pre>
+        <h2 className="font-bold text-3xl mb-4 uppercase">My Blogs</h2>
+        {error ? (
+          <p className="text-red-500">Error: {error.message}</p>
+        ) : blogs.length === 0 ? (
+          <div className="grid gap-5">
+            <p className="text-xl italic text-gray-500">No Blogs found. Add a blog post to get started!</p>
+            <Link
+          href="/add-blog"
+          className="hover:bg-black  text-black hover:text-white border-4 border-black px-4 py-2  transition-colors duration-300 font-semibold uppercase my-10 text-center"
+        >
+          Add a Blog
+        </Link>
+          </div>
+        ) : (
+          <ul className="font-thin">
+            {blogs.map((blog: any) => (
+              <Link href={`/blogs/${blog.id}`} key={blog.id} >
+                <li className="group my-5 cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out hover:bg-gray-50 px-10 py-2 border-b">
+                <h3 className="font-semibold">{blog.title}</h3>
+                <div className="flex gap-2 items-center">
+                <p>{new Date(blog.created_at).toLocaleString()}</p>
+                <ArrowUpRight size="32" strokeWidth={1}  className="group-hover:scale-125 transition-all duration-300 group-hover:rotate-45"/>
+                </div>
+                </li>
+              </Link>
+            ))}
+          </ul>
+        )}
       </div>
-      <div>
+      {/* <div>
         <h2 className="font-bold text-2xl mb-4">Next steps</h2>
         <FetchDataSteps />
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -61,6 +61,7 @@ export default function AddBlog() {
             className="border p-2"
           ></textarea>
         </div>
+
         <div>
           <label>Author ID:</label>
           <input
