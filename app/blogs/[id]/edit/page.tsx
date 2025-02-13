@@ -115,7 +115,7 @@ export default function BlogPost() {
   return (
     <div>
       {!isEditing && isAuthor && (
-        <div className="flex space-x-10 h-14 items-center w-full justify-end">
+        <div className="flex space-x-10 h-14 items-center w-full justify-center md:justify-end">
           <button
             onClick={() => setIsEditing(true)}
             className="bg-black text-white px-10 hover:border-4 border-black border-4 hover:text-black transition-colors duration-300 hover:bg-white py-2 shadow-sm uppercase"
@@ -137,7 +137,7 @@ export default function BlogPost() {
           value={updatedTitle}
           onChange={(e) => setUpdatedTitle(e.target.value)}
           placeholder={blog.title}
-          className="min-w-[500px] h-16 text-2xl px-5"
+          className="sm:min-w-[500px] h-16 text-2xl px-5"
         />
       ) : (
         <h1 className="font-bold text-2xl my-5">{blog.title}</h1>
@@ -156,7 +156,7 @@ export default function BlogPost() {
             <textarea
               value={updatedContent}
               onChange={(e) => setUpdatedContent(e.target.value)}
-              className="min-w-[700px] p-2 border rounded-md"
+              className="w-full  md:min-w-[500px]  lg:min-w-[700px] p-2 border rounded-md"
               rows={15}
             />
           ) : (
