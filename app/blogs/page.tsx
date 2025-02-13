@@ -50,7 +50,7 @@ export default function Blogs() {
   const paginatedBlogs = blogs?.slice((page - 1) * pageSize, page * pageSize);
 
   return (
-    <div>
+    <div className="">
       <div className="w-full text-center">
         <h1 className="font-bold text-3xl border-b py-2 uppercase">
           Blog Posts
@@ -63,7 +63,7 @@ export default function Blogs() {
       ) : paginatedBlogs?.length === 0 ? (
         <p>No blogs found.</p>
       ) : (
-        <div className="mt-10 min-w-[500px]">
+        <div className="mt-10 md:min-w-[500px]">
           {paginatedBlogs?.map((post: any) => (
             <div
               key={post.id}
