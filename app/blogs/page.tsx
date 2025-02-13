@@ -3,7 +3,6 @@
 import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 export default function Blogs() {
@@ -34,8 +33,7 @@ export default function Blogs() {
   const totalPages = Math.ceil((blogs?.length || 0) / pageSize);
 
   const getItemProps = (index: number) => ({
-    variant: page === index ? "filled" : "text",
-    color: page === index ? "blue" : "gray",
+    className: `px-3 py-2 border rounded text-xs ${page === index ? "bg-blue-500 text-white" : "bg-white text-gray-700"}`,
     onClick: () => setPage(index),
   });
 
@@ -97,37 +95,32 @@ export default function Blogs() {
           My Blog Posts
         </Link>
       </div>
-      <div className="flex justify-between mt-4">
-        <Button
-          variant="text"
-          color="blue"
-          className="flex items-center gap-2"
+      <div className="flex justify-between mt-10">
+        <button
+          className="flex items-center gap-2 px-4 py-2 border rounded bg-white text-gray-700 hover:bg-gray-100"
           onClick={prev}
           disabled={page === 1}
         >
           <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
-        </Button>
-        <div className="flex items-center justify-center gap-2">
+        </button>
+        <div className="flex items-center justify-center gap-2 ">
           {Array.from({ length: totalPages }, (_, index) => (
-            <IconButton
-              className="flex items-center justify-center"
+            <button
               key={index + 1}
               {...getItemProps(index + 1)}
             >
               {index + 1}
-            </IconButton>
+            </button>
           ))}
         </div>
-        <Button
-          variant="text"
-          color="blue"
-          className="flex items-center gap-2"
+        <button
+          className="flex items-center gap-2 px-4 py-2 border rounded bg-white text-gray-700 hover:bg-gray-100"
           onClick={next}
           disabled={page === totalPages}
         >
           Next
           <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
-        </Button>
+        </button>
       </div>
     </div>
   );
