@@ -52,7 +52,7 @@ export default function Blogs() {
   return (
     <div className="">
       <div className="w-full text-center">
-        <h1 className="font-bold text-3xl border-b py-2 uppercase">
+        <h1 className="font-bold text-3xl border-b py-2 uppercase -mt-5">
           Blog Posts
         </h1>
       </div>
@@ -67,10 +67,9 @@ export default function Blogs() {
           {paginatedBlogs?.map((post: any) => (
             <div
               key={post.id}
-              className="group cursor-pointer border-b py-4 px-4 hover:bg-gray-100 transition-all duration-500"
+              className="group cursor-pointer border-b py-5 px-4 hover:bg-gray-100 transition-all duration-500"
               onClick={() => (window.location.href = `/blogs/${post.id}`)}
             >
-
               <div className="text-xl font-medium text-gray-900 ">
                 {post.title}
               </div>
@@ -81,7 +80,7 @@ export default function Blogs() {
                   {new Date(post.created_at).toLocaleString()}
                 </div>
               </div>
-              <div className="text-sm text-gray-500 line-clamp-3">{post.content}</div>
+              <div className="text-sm text-gray-500 line-clamp-2">{post.content}</div>
             </div>
           ))}
         </div>

@@ -6,7 +6,7 @@ export async function GET(request: Request) {
   const code = requestUrl.searchParams.get("code");
   const error = requestUrl.searchParams.get("error");
   const errorDescription = requestUrl.searchParams.get("error_description");
-  const origin = requestUrl.origin;
+  const origin = "https://nextjs-with-supabase-six-rosy.vercel.app"; // Replace with your deployed app URL
   const redirectTo = requestUrl.searchParams.get("redirect_to")?.toString();
 
   if (error) {
@@ -22,6 +22,6 @@ export async function GET(request: Request) {
     return NextResponse.redirect(`${origin}${redirectTo}`);
   }
 
-  // Redirect to the protected page `/blogs` after successful authentication
-  return NextResponse.redirect(`${origin}/blogs`);
+  // Redirect to the sign-in page after successful sign-up
+  return NextResponse.redirect(`${origin}/sign-in`);
 }
