@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { X } from 'lucide-react';
 
 export default function AddBlog() {
   const [title, setTitle] = useState('');
@@ -10,7 +12,9 @@ export default function AddBlog() {
   const [authorId, setAuthorId] = useState<string>('');
   const [userEmail, setUserEmail] = useState<string>('');
   const [message, setMessage] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
   const supabase = createClient();
+  const router = useRouter();
 
   useEffect(() => {
     const getUser = async () => {
@@ -25,6 +29,13 @@ export default function AddBlog() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    if (!title || !content) {
+      setMessage('Title and Content cannot be empty.');
+      setModalOpen(true);
+      return;
+    }
+
     const { data, error } = await supabase
       .from('blogs')
       .insert([{ title, content, author_id: authorId, author_email: userEmail }]);
@@ -32,11 +43,17 @@ export default function AddBlog() {
     if (error) {
       console.error('Error inserting blog:', error.message);
       setMessage('Error: ' + error.message);
+      setModalOpen(true);
     } else {
       console.log('Blog inserted:', data);
       setMessage('Blog added successfully!');
       setTitle('');
       setContent('');
+      setModalOpen(true);
+      setTimeout(() => {
+        setModalOpen(false);
+        router.push('/protected');
+      }, 3000);
     }
   };
 
@@ -45,11 +62,10 @@ export default function AddBlog() {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen flex items-center justify-center bg-gray-100"
+      className="min-h-screen flex items-center justify-center "
     >
       <div className=" w-screen p-8 bg-white shadow-lg rounded-lg">
         <h1 className="text-3xl font-bold mb-6 text-center">Add a Blog Post</h1>
-        {message && <p className="text-center text-blue-500 mb-4">{message}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">Title:</label>
@@ -91,6 +107,19 @@ export default function AddBlog() {
           </motion.button>
         </form>
       </div>
+
+      {/* Message Modal */}
+      {modalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+            <div className="flex justify-between ">
+              <h2 className="text-xl font-semibold mb-4">Message</h2>
+              {/* <button onClick={() => setModalOpen(false)} className=''><X /></button> */}
+            </div>
+            <p className="mb-2">{message}</p>
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 }

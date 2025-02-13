@@ -54,7 +54,7 @@ export default function Blogs() {
   return (
     <div>
       <div className="w-full text-center">
-        <h1 className="font-bold text-2xl border-b py-2 uppercase">
+        <h1 className="font-bold text-3xl border-b py-2 uppercase">
           Blog Posts
         </h1>
       </div>

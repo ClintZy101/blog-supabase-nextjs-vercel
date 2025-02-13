@@ -2,14 +2,14 @@
 
 import { createClient } from '@/utils/supabase/client';
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation'; // Use `useParams` instead of `useRouter`
-import { Button } from '@material-tailwind/react';
+import { useParams, useRouter } from 'next/navigation'; // Use `useParams` instead of `useRouter`
 import { ArrowLeftIcon } from 'lucide-react';
 
 export default function BlogPost() {
   const [blog, setBlog] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
   const params = useParams(); // Get dynamic `id` from URL
+  const router = useRouter();
   const supabase = createClient();
 
   useEffect(() => {
@@ -37,18 +37,21 @@ export default function BlogPost() {
   if (!blog) return <p>Loading...</p>;
 
   return (
-    <div>
-      <h1 className='font-bold text-2xl my-5'>{blog.title}</h1>
-      <div className='grid gap-2 my-5 italic'>
-      <p>Author: {blog.author_email}</p>
-      <p className=" whitespace-nowrap text-sm text-gray-500">{new Date(blog.created_at).toLocaleString()}</p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="max-w-4xl w-full p-8 bg-white ">
+        <div className="=w-full justify-end flex">
+          <button onClick={() => window.history.back()} className='px-5 flex gap-2 items-center border-4 py-2 border-black hover:bg-black hover:text-white transition-colors duration-300 '>
+            <ArrowLeftIcon size='24' strokeWidth={1} />
+            <p>Go Back</p>
+          </button>
+        </div>
+        <h1 className='font-bold text-2xl my-5'>{blog.title}</h1>
+        <div className='grid gap-2 my-5 italic'>
+          <p>Author: {blog.author_email}</p>
+          <p className=" whitespace-nowrap text-sm text-gray-500">{new Date(blog.created_at).toLocaleString()}</p>
+        </div>
+        <p className='text-lg font-thin'>{blog.content}</p>
       </div>
-     
-      <p className='text-lg font-thin'>{blog.content}</p>
-      <button onClick={() => window.history.back()} className='px-5 my-5 flex gap-2 items-center border-4 py-2 border-black hover:bg-black hover:text-white transition-colors duration-300'>
-        <ArrowLeftIcon size='24' strokeWidth={1} />
-        <p>Go Back</p>
-        </button>
     </div>
   );
 }
