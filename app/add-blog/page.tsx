@@ -1,24 +1,26 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { createClient } from '@/utils/supabase/client';
-import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
-import { X } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { createClient } from "@/utils/supabase/client";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { X } from "lucide-react";
 
 export default function AddBlog() {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [authorId, setAuthorId] = useState<string>('');
-  const [userEmail, setUserEmail] = useState<string>('');
-  const [message, setMessage] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [authorId, setAuthorId] = useState<string>("");
+  const [userEmail, setUserEmail] = useState<string>("");
+  const [message, setMessage] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const supabase = createClient();
   const router = useRouter();
 
   useEffect(() => {
     const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (user && user.id) {
         setAuthorId(user.id as string);
         setUserEmail(user.email as string);
@@ -31,30 +33,37 @@ export default function AddBlog() {
     e.preventDefault();
 
     if (!title || !content) {
-      setMessage('Title and Content cannot be empty.');
+      setMessage("Title and Content cannot be empty.");
       setModalOpen(true);
       return;
     }
 
     const { data, error } = await supabase
-      .from('blogs')
-      .insert([{ title, content, author_id: authorId, author_email: userEmail }]);
+      .from("blogs")
+      .insert([
+        { title, content, author_id: authorId, author_email: userEmail },
+      ]);
 
     if (error) {
-      console.error('Error inserting blog:', error.message);
-      setMessage('Error: ' + error.message);
+      console.error("Error inserting blog:", error.message);
+      setMessage("Error: " + error.message);
       setModalOpen(true);
     } else {
-      console.log('Blog inserted:', data);
-      setMessage('Blog added successfully!');
-      setTitle('');
-      setContent('');
+      console.log("Blog inserted:", data);
+      setMessage("Blog added successfully!");
+      setTitle("");
+      setContent("");
       setModalOpen(true);
-      setTimeout(() => {
-        setModalOpen(false);
-        router.push('/protected');
-      }, 3000);
+      // setTimeout(() => {
+      //   setModalOpen(false);
+      //   router.push('/protected');
+      // }, 2000);
     }
+  };
+
+  const handleClose = () => {
+    setModalOpen(false);
+    router.push("/protected");
   };
 
   return (
@@ -68,7 +77,9 @@ export default function AddBlog() {
         <h1 className="text-3xl font-bold mb-6 text-center">Add a Blog Post</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-white">Title:</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              Title:
+            </label>
             <input
               type="text"
               value={title}
@@ -77,7 +88,9 @@ export default function AddBlog() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-white">Content:</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              Content:
+            </label>
             <textarea
               value={content}
               onChange={(e) => setContent(e.target.value)}
@@ -85,7 +98,9 @@ export default function AddBlog() {
             ></textarea>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-white">Author ID:</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              Author ID:
+            </label>
             <input
               type="text"
               value={authorId}
@@ -95,7 +110,9 @@ export default function AddBlog() {
             />
           </div>
           <div className="flex space-x-5">
-            <p className="text-sm font-medium text-gray-700 dark:text-white">Author Email:</p>
+            <p className="text-sm font-medium text-gray-700 dark:text-white">
+              Author Email:
+            </p>
             <p className="text-sm">{userEmail}</p>
           </div>
           <motion.button
@@ -114,7 +131,9 @@ export default function AddBlog() {
           <div className="bg-white dark:text-white dark:bg-black dark:border-4 dark:border-white dark p-6 rounded-lg shadow-lg max-w-sm w-full">
             <div className="flex justify-between ">
               <h2 className="text-xl font-semibold mb-4">Message</h2>
-              <button onClick={() => setModalOpen(false)} className=''><X /></button>
+              <button onClick={handleClose} className="">
+                <X />
+              </button>
             </div>
             <p className="mb-2">{message}</p>
           </div>

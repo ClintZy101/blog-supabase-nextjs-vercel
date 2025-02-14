@@ -63,7 +63,7 @@ export default function Blogs() {
       ) : paginatedBlogs?.length === 0 ? (
         <p>No blogs found.</p>
       ) : (
-        <div className="mt-10 md:min-w-[500px]">
+        <div className="mt-10  md:min-w-[500px]">
           {paginatedBlogs?.map((post: any) => (
             <div
               key={post.id}
@@ -94,15 +94,8 @@ export default function Blogs() {
           My Blog Posts
         </Link>
       </div>
-      <div className="flex justify-between mt-10">
-        <button
-          className="flex items-center gap-2 px-4 py-2 border rounded bg-white text-gray-700 hover:bg-gray-100"
-          onClick={prev}
-          disabled={page === 1}
-        >
-          <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
-        </button>
-        <div className="flex items-center justify-center gap-2 ">
+      
+      <div className="flex items-center justify-center gap-2 ">
           {Array.from({ length: totalPages }, (_, index) => (
             <button
               key={index + 1}
@@ -112,6 +105,16 @@ export default function Blogs() {
             </button>
           ))}
         </div>
+
+      <div className="flex w-full min-w-[400px] md:justify-between justify-around mt-5">
+        <button
+          className="flex items-center gap-2 px-4 py-2 border rounded bg-white text-gray-700 hover:bg-gray-100"
+          onClick={prev}
+          disabled={page === 1}
+        >
+          <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
+        </button>
+        
         <button
           className="flex items-center gap-2 px-4 py-2 border rounded bg-white text-gray-700 hover:bg-gray-100"
           onClick={next}
