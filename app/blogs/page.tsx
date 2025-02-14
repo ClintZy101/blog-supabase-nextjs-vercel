@@ -33,7 +33,7 @@ export default function Blogs() {
   const totalPages = Math.ceil((blogs?.length || 0) / pageSize);
 
   const getItemProps = (index: number) => ({
-    className: `px-3 py-2 border rounded text-xs ${page === index ? "bg-blue-500 text-white" : "bg-white text-gray-700"}`,
+    className: `px-3 py-2 border rounded text-xs ${page === index ? "bg-black text-white" : "bg-white text-gray-700"}`,
     onClick: () => setPage(index),
   });
 
