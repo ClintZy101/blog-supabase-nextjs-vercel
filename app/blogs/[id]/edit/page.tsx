@@ -166,7 +166,7 @@ export default function BlogPost() {
             {isEditing && (
               <button
                 onClick={handleSave}
-                className="bg-green-500 hover:bg-green-600 transition-colors duration-300 text-white px-4 py-2 shadow-sm"
+                className="bg-black hover:bg-white hover:text-black hover:border-4 border-4 border-black dark:bg-white dark:text-black dark:border-white dark:hover:bg-black dark:hover:text-white transition-colors duration-300 text-white px-4 py-2 shadow-sm"
               >
                 Save
               </button>
