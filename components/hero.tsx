@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 export default function Header() {
   // bg-gradient-to-b from-gray-100 to-gray-300 
   return (
-    <div className="flex flex-col gap-10 items-center justify-center px-6 py-10 ">
+    <div className="flex flex-col gap-10 items-center justify-center px-6 py-10  ">
       <motion.div
-        className="text-5xl lg:text-6xl font-extrabold text-gray-800 text-center"
+        className="text-5xl lg:text-6xl font-extrabold text-gray-800 dark:text-white text-center"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -16,7 +16,7 @@ export default function Header() {
       </motion.div>
       
       <motion.div
-        className="text-lg lg:text-xl text-gray-600 max-w-2xl font-thin text-center"
+        className="text-lg lg:text-xl text-gray-600 dark:text-gray-100 max-w-2xl font-thin text-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
@@ -30,7 +30,7 @@ export default function Header() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 1 }}
       >
-        <Link href="/blogs" className="px-6 py-3 bg-black hover:bg-white border-4 hover:border-4 hover:text-black border-black text-white text-lg font-semibold  shadow-md  transition-all uppercase">
+        <Link href="/blogs" className="px-6 py-3 bg-black dark:border-white hover:bg-white border-4 hover:border-4 hover:text-black border-black text-white text-lg font-semibold  shadow-md  transition-all uppercase">
             Read Stories
         </Link>
       </motion.div>

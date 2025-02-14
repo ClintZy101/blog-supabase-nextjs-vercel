@@ -64,44 +64,44 @@ export default function AddBlog() {
       transition={{ duration: 0.5 }}
       className="min-h-screen flex items-center justify-center "
     >
-      <div className=" w-screen p-8 bg-white shadow-lg rounded-lg">
+      <div className=" w-screen p-8 bg-white dark:bg-black dark:text-white shadow-lg rounded-lg">
         <h1 className="text-3xl font-bold mb-6 text-center">Add a Blog Post</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Title:</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">Title:</label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              className="mt-1 block w-full border border-gray-300 bg-gray-50 dark:bg-gray-800 rounded-md shadow-sm p-2"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Content:</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">Content:</label>
             <textarea
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 h-64 resize-none"
+              className="mt-1 block w-full border border-gray-300 bg-gray-50 dark:bg-gray-800 rounded-md shadow-sm p-2 h-64 resize-none"
             ></textarea>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Author ID:</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">Author ID:</label>
             <input
               type="text"
               value={authorId}
+              disabled
               readOnly
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-gray-200"
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-gray-50 dark:text-black"
             />
           </div>
           <div className="flex space-x-5">
-            <p className="text-sm font-medium text-gray-700">Author Email:</p>
+            <p className="text-sm font-medium text-gray-700 dark:text-white">Author Email:</p>
             <p className="text-sm">{userEmail}</p>
           </div>
           <motion.button
-            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             type="submit"
-            className="mt-4 w-full bg-black text-white px-4 py-2  shadow-sm"
+            className="mt-4 w-full bg-black text-white dark:bg-white dark:text-black px-4 py-2  shadow-sm"
           >
             Add Blog
           </motion.button>
@@ -111,10 +111,10 @@ export default function AddBlog() {
       {/* Message Modal */}
       {modalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+          <div className="bg-white dark:text-white dark:bg-black dark:border-4 dark:border-white dark p-6 rounded-lg shadow-lg max-w-sm w-full">
             <div className="flex justify-between ">
               <h2 className="text-xl font-semibold mb-4">Message</h2>
-              {/* <button onClick={() => setModalOpen(false)} className=''><X /></button> */}
+              <button onClick={() => setModalOpen(false)} className=''><X /></button>
             </div>
             <p className="mb-2">{message}</p>
           </div>

@@ -118,13 +118,13 @@ export default function BlogPost() {
         <div className="flex space-x-10 h-14 items-center w-full justify-center md:justify-end">
           <button
             onClick={() => setIsEditing(true)}
-            className="bg-black text-white px-10 hover:border-4 border-black border-4 hover:text-black transition-colors duration-300 hover:bg-white py-2 shadow-sm uppercase"
+            className="bg-black text-white px-10 hover:border-4 border-black border-4 hover:text-black transition-colors duration-300 hover:bg-white dark:border-white py-2 shadow-sm uppercase"
           >
             Edit
           </button>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-red-500 text-white px-10 hover:border-4 border-red-500 border-4 hover:text-red-500  uppercase transition-colors duration-300 hover:bg-white py-2 shadow-sm"
+            className="bg-red-500 text-white px-10 hover:border-4 border-red-500 border-4 hover:text-red-500 dark:hover:bg-black dark:hover:text-white  uppercase transition-colors duration-300 hover:bg-white py-2 shadow-sm"
           >
             Delete Blog
           </button>
@@ -137,7 +137,7 @@ export default function BlogPost() {
           value={updatedTitle}
           onChange={(e) => setUpdatedTitle(e.target.value)}
           placeholder={blog.title}
-          className="sm:min-w-[500px] h-16 text-2xl px-5"
+          className="sm:min-w-[500px] w-full dark:bg-gray-900 bg-gray-100 h-16 text-2xl px-5"
         />
       ) : (
         <h1 className="font-bold text-2xl my-5">{blog.title}</h1>
@@ -156,7 +156,7 @@ export default function BlogPost() {
             <textarea
               value={updatedContent}
               onChange={(e) => setUpdatedContent(e.target.value)}
-              className="w-full  md:min-w-[500px]  lg:min-w-[700px] p-2 border rounded-md"
+              className="w-full dark:bg-gray-900  bg-gray-100 md:min-w-[500px]  lg:min-w-[700px] p-2 border rounded-md"
               rows={15}
             />
           ) : (
@@ -188,7 +188,7 @@ export default function BlogPost() {
       {!isEditing && (
         <button
           onClick={() => router.push("/protected")}
-          className="px-5 my-5 flex gap-2 items-center border-4 py-2 border-black hover:bg-black hover:text-white transition-colors duration-300 justify-self-center"
+          className="px-5 my-5 flex gap-2 items-center border-4 py-2 border-black hover:bg-black hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-black transition-colors duration-300 justify-self-center"
         >
           <ArrowLeftIcon size="24" strokeWidth={1} />
           <p>Go Back</p>
@@ -197,17 +197,17 @@ export default function BlogPost() {
 
       {/* Delete Confirmation Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
-            <h2 className="text-xl font-semibold mb-4">Confirm Deletion</h2>
-            <p className="mb-2">
+        <div className="fixed inset-0 flex items-center justify-center bg-black  bg-opacity-50">
+          <div className="bg-white dark:text-black  p-6 rounded-lg shadow-lg max-w-sm w-full">
+            <h2 className="text-xl font-semibold mb-4 ">Confirm Deletion</h2>
+            <p className="mb-2 dark:text-black">
               Type <strong>{blog.title}</strong> to confirm deletion.
             </p>
             <input
               type="text"
               value={confirmTitle}
               onChange={(e) => setConfirmTitle(e.target.value)}
-              className="border p-2 w-full rounded-md"
+              className="border p-2 w-full rounded-md dark:text-white text-white bg-gray-700"
             />
             <div className="flex justify-end gap-2 mt-4">
               <button
@@ -240,7 +240,7 @@ export default function BlogPost() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             exit={{ opacity: 0, x: 50 }}
-            className="fixed top-4 right-4 bg-green-500 text-white  shadow-lg px-4 py-2 font-extralight"
+            className="fixed top-4 right-4 bg-green-500 text-white   shadow-lg px-4 py-2 font-extralight"
           >
             <p>{successMessage}</p>
           </motion.div>

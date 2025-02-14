@@ -67,20 +67,20 @@ export default function Blogs() {
           {paginatedBlogs?.map((post: any) => (
             <div
               key={post.id}
-              className="group cursor-pointer border-b py-5 px-4 hover:bg-gray-100 transition-all duration-500"
+              className="group cursor-pointer border-b py-5 px-4 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-500"
               onClick={() => (window.location.href = `/blogs/${post.id}`)}
             >
-              <div className="text-xl font-medium text-gray-900 ">
+              <div className="text-xl font-medium text-gray-900 dark:text-white  ">
                 {post.title}
               </div>
               
               <div>
-                <div className="text-sm text-gray-500">{post.author_email}</div>
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-gray-500 dark:text-gray-200">{post.author_email}</div>
+                <div className="text-sm text-gray-500 dark:text-gray-200">
                   {new Date(post.created_at).toLocaleString()}
                 </div>
               </div>
-              <div className="text-sm text-gray-500 line-clamp-2">{post.content}</div>
+              <div className="text-sm text-gray-500 dark:text-gray-100 line-clamp-2">{post.content}</div>
             </div>
           ))}
         </div>
@@ -89,7 +89,7 @@ export default function Blogs() {
       <div className="text-center my-10">
         <Link
           href="/protected"
-          className="hover:bg-black  text-black hover:text-white border-4 border-black px-4 py-2  transition-colors duration-300 font-semibold uppercase my-10"
+          className="hover:bg-black  text-black hover:text-white dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black border-4 border-black px-4 py-2  transition-colors duration-300 font-semibold uppercase my-10"
         >
           My Blog Posts
         </Link>

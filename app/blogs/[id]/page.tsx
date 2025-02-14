@@ -37,10 +37,10 @@ export default function BlogPost() {
   if (!blog) return <p>Loading...</p>;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="max-w-4xl w-full p-8 bg-white ">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black">
+      <div className="max-w-4xl w-full p-8 bg-white dark:bg-black">
         <div className="=w-full justify-end flex">
-          <button onClick={() => window.history.back()} className='px-5 flex gap-2 items-center border-4 py-2 border-black hover:bg-black hover:text-white transition-colors duration-300 '>
+          <button onClick={() => window.history.back()} className='px-5 flex gap-2 items-center border-4 py-2 border-black hover:bg-black dark:hover:bg-white dark:hover:text-black hover:text-white transition-colors duration-300 '>
             <ArrowLeftIcon size='24' strokeWidth={1} />
             <p>Go Back</p>
           </button>

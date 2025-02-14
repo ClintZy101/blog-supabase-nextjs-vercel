@@ -33,7 +33,7 @@ export default async function ProtectedPage() {
         <h2 className="font-bold text-3xl mb-4 uppercase">My Blogs</h2>
         <Link
           href="/add-blog"
-          className="hover:bg-black  text-black hover:text-white border-4 border-black px-4 py-2  transition-colors duration-300 font-semibold uppercase my-10 text-center"
+          className="hover:bg-black  text-black  hover:text-white border-4 border-black dark:text-white dark:border-white dark:hover:bg-white dark:hover:text-black  px-4 py-2  transition-colors duration-300 font-semibold uppercase my-10 text-center"
         >
           Add a Blog
         </Link>
@@ -51,7 +51,7 @@ export default async function ProtectedPage() {
           <ul className="font-thin w-full">
             {blogs.map((blog: any) => (
               <Link href={`/blogs/${blog.id}/edit`} key={blog.id}>
-                <li className="group my-5 cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out hover:bg-gray-50 px-2 py-2 border-b">
+                <li className="group my-5 cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out hover:bg-gray-50 dark:hover:bg-gray-800 px-2 py-2 border-b">
                   <h3 className="font-semibold">{blog.title}</h3>
                   <p className="line-clamp-2">{blog.content}</p>
                   <div className="flex gap-2 items-center">
